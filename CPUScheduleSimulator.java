@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 public class CPUScheduleSimulator {
-    private final ArrayList<CPUSystem> systems;
+    private ArrayList<CPUSystem> systems;
 
     public CPUScheduleSimulator() {
         systems = new ArrayList<>();

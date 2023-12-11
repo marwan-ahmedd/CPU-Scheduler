@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class SJF implements CPUSystem {
+public class SJF extends CPUSystem {
     private final Process[] processes;
     private final int contextSwitchingTime;
     ArrayList<Process> executionOrder;
@@ -36,19 +36,10 @@ public class SJF implements CPUSystem {
         }
         print();
     }
-    public static Process findShortestProcess(ArrayList<Process> processes, int curTime) {
-        Process shortest = null;
-        int minBurstTime = Integer.MAX_VALUE;
-        for (Process process : processes) {
-            if (process.arrivalTime <= curTime && process.burstTime < minBurstTime) {
-                shortest = process;
-                minBurstTime = process.burstTime;
-            }
-        }
-        return shortest;
-    }
     public void print() {
         double averageWaitingTime = 0, averageAroundTime = 0;
+
+        System.out.println("Using the Non-preemptive Shortest-Job First (SJF)");
         for (Process proc : executionOrder)  {
             System.out.print(proc.name + "    ");
         }
