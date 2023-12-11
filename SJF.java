@@ -35,6 +35,6 @@ public class SJF extends CPUSystem {
             }
         }
         System.out.println("Using the Non-preemptive Shortest-Job First (SJF)");
-        print(executionOrder, processes.length);
+        print(executionOrder, processes);
     }
 }

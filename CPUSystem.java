@@ -13,25 +13,37 @@ public abstract class CPUSystem {
         }
         return shortest;
     }
-    public final void print(ArrayList<Process> executionOrder, int numProcesses) {
+    public final void print(ArrayList<Process> executionOrder, Process[] processes) {
         double averageWaitingTime = 0, averageAroundTime = 0;
 
-        for (Process proc : executionOrder)  {
-            System.out.print(proc.name + "    ");
+        System.out.print("Execution Order:  ");
+        for (Process process : executionOrder)  {
+            System.out.print(process.name + "  ");
         }
         System.out.println();
-        for (Process proc : executionOrder)  {
-            System.out.print(proc.waitingTime + "     ");
-            averageWaitingTime += proc.waitingTime;
+
+        System.out.println("Waiting Time for each processor");
+        for (Process process : processes)  {
+            System.out.print(process.name + "    ");
         }
         System.out.println();
-        for (Process proc : executionOrder)  {
-            System.out.print(proc.turnAroundTime + "     ");
-            averageAroundTime += proc.turnAroundTime;
+        for (Process process : processes)  {
+            System.out.print(process.waitingTime + "     ");
+            averageWaitingTime += process.waitingTime;
         }
         System.out.println();
-        averageWaitingTime /=  numProcesses;
-        averageAroundTime /= numProcesses;
+        System.out.println("Turnaround Time for each processor");
+        for (Process process : processes)  {
+            System.out.print(process.name + "    ");
+        }
+        System.out.println();
+        for (Process process : processes)  {
+            System.out.print(process.turnAroundTime + "     ");
+            averageAroundTime += process.turnAroundTime;
+        }
+        System.out.println();
+        averageWaitingTime /=  processes.length;
+        averageAroundTime /= processes.length;
         System.out.println("Average waiting time = " + (averageWaitingTime));
         System.out.println("Average turnaround time = " + (averageAroundTime));
     }
