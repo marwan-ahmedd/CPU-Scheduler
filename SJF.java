@@ -4,7 +4,7 @@ import java.util.Collections;
 
 public class SJF implements CPUSystem {
     private final Process[] processes;
-    private int contextSwitchingTime;
+    private final int contextSwitchingTime;
     ArrayList<Process> executionOrder;
     public SJF(Process[] processes, int contextSwitchingTime) {
         this.processes = processes;
@@ -24,9 +24,9 @@ public class SJF implements CPUSystem {
 
             shortestProcess.completionTime = curTime + shortestProcess.burstTime + contextSwitchingTime;
 
-            shortestProcess.waitingTime = shortestProcess.completionTime
+            shortestProcess.waitingTime = shortestProcess.completionTime - contextSwitchingTime
                     - shortestProcess.arrivalTime - shortestProcess.burstTime;
-            shortestProcess.turnAroundTime = shortestProcess.waitingTime + shortestProcess.burstTime;
+            shortestProcess.turnAroundTime = shortestProcess.waitingTime + shortestProcess.burstTime + contextSwitchingTime;
 
             remaining.remove(shortestProcess);
             curTime = shortestProcess.completionTime;
