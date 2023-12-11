@@ -26,10 +26,11 @@ public class SRTF extends CPUSystem {
                 if (executionOrder.isEmpty() || executionOrder.get(executionOrder.size() - 1) != shortestProcess) {
                     executionOrder.add(shortestProcess);
                     shortestProcess.waitingTime += curTime - shortestProcess.arrivalTime - shortestProcess.serviceTime;
+                    curTime += contextSwitchingTime;
                 }
                 shortestProcess.serviceTime++;
                 if (shortestProcess.serviceTime == shortestProcess.burstTime) {
-                    shortestProcess.completionTime = curTime + 1;
+                    shortestProcess.completionTime = curTime - contextSwitchingTime + 1;
                     shortestProcess.turnAroundTime = shortestProcess.completionTime - shortestProcess.arrivalTime;
                     remaining.remove(shortestProcess);
                 }

@@ -7,7 +7,7 @@ public class Main {
         Process[] processes = {p1, p3, p2, p4};
 
         CPUScheduleSimulator simulator = new CPUScheduleSimulator();
-        simulator.addSystem(new SRTF(processes, 0));
+        simulator.addSystem(new SRTF(processes, 1));
         simulator.simulate();
     }
 }
