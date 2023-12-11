@@ -25,9 +25,8 @@ public class SJF implements CPUSystem {
 
                 shortestProcess.completionTime = curTime + shortestProcess.burstTime + contextSwitchingTime;
 
-                shortestProcess.waitingTime = shortestProcess.completionTime - contextSwitchingTime
-                        - shortestProcess.arrivalTime - shortestProcess.burstTime;
-                shortestProcess.turnAroundTime = shortestProcess.waitingTime + shortestProcess.burstTime + contextSwitchingTime;
+                shortestProcess.turnAroundTime = shortestProcess.completionTime - shortestProcess.arrivalTime;
+                shortestProcess.waitingTime = shortestProcess.turnAroundTime - shortestProcess.burstTime;
 
                 remaining.remove(shortestProcess);
                 curTime = shortestProcess.completionTime;
