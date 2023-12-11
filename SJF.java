@@ -34,29 +34,7 @@ public class SJF extends CPUSystem {
                 curTime++;
             }
         }
-        print();
-    }
-    public void print() {
-        double averageWaitingTime = 0, averageAroundTime = 0;
-
         System.out.println("Using the Non-preemptive Shortest-Job First (SJF)");
-        for (Process proc : executionOrder)  {
-            System.out.print(proc.name + "    ");
-        }
-        System.out.println();
-        for (Process proc : executionOrder)  {
-            System.out.print(proc.waitingTime + "     ");
-            averageWaitingTime += proc.waitingTime;
-        }
-        System.out.println();
-        for (Process proc : executionOrder)  {
-            System.out.print(proc.turnAroundTime + "     ");
-            averageAroundTime += proc.turnAroundTime;
-        }
-        System.out.println();
-        averageWaitingTime /=  processes.length;
-        averageAroundTime /= processes.length;
-        System.out.println("Average waiting time = " + (averageWaitingTime));
-        System.out.println("Average turnaround time = " + (averageAroundTime));
+        print(executionOrder, processes.length);
     }
 }

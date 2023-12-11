@@ -21,7 +21,9 @@ public class SRTF extends CPUSystem {
         while (!remaining.isEmpty()) {
             Process shortestProcess = findShortestProcess(remaining, curTime);
             if (shortestProcess != null) {
-                executionOrder.add(shortestProcess);
+                if (executionOrder.isEmpty() || executionOrder.get(executionOrder.size() - 1) != shortestProcess) {
+                    executionOrder.add(shortestProcess);
+                }
                 shortestProcess.burstTime--;
                 if (shortestProcess.burstTime == 0) {
                     shortestProcess.completionTime = curTime;
