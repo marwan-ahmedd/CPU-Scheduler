@@ -18,18 +18,22 @@ public class SJF implements CPUSystem {
         Collections.addAll(remaining, processes);
 
         int curTime = 0;
-        for (int i = 0; i < processes.length; i++) {
+        while (executionOrder.size() < processes.length) {
             Process shortestProcess = findShortestProcess(remaining, curTime);
-            executionOrder.add(shortestProcess);
+            if (shortestProcess != null) {
+                executionOrder.add(shortestProcess);
 
-            shortestProcess.completionTime = curTime + shortestProcess.burstTime + contextSwitchingTime;
+                shortestProcess.completionTime = curTime + shortestProcess.burstTime + contextSwitchingTime;
 
-            shortestProcess.waitingTime = shortestProcess.completionTime - contextSwitchingTime
-                    - shortestProcess.arrivalTime - shortestProcess.burstTime;
-            shortestProcess.turnAroundTime = shortestProcess.waitingTime + shortestProcess.burstTime + contextSwitchingTime;
+                shortestProcess.waitingTime = shortestProcess.completionTime - contextSwitchingTime
+                        - shortestProcess.arrivalTime - shortestProcess.burstTime;
+                shortestProcess.turnAroundTime = shortestProcess.waitingTime + shortestProcess.burstTime + contextSwitchingTime;
 
-            remaining.remove(shortestProcess);
-            curTime = shortestProcess.completionTime;
+                remaining.remove(shortestProcess);
+                curTime = shortestProcess.completionTime;
+            } else {
+                curTime++;
+            }
         }
         print();
     }
