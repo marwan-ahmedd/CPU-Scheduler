@@ -17,8 +17,11 @@ public class Priority extends CPUSystem {
         int highestPriority = Integer.MAX_VALUE;
         for (Process process : processes) {
             if (process.arrivalTime <= curTime && process.priority <= highestPriority) {
+                if (highestPriority == process.priority) {
+                    assert highest != null;
+                    highest = (highest.burstTime < process.burstTime ? highest : process);
+                }
                 highestPriority = process.priority;
-                highest = process;
             }
         }
         return highest;
