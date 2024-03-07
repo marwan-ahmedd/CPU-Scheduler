@@ -2,13 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-public class SJF extends CPUSystem {
-    private final Process[] processes;
-    private final int contextSwitchingTime;
+public class SJF extends ShortestProcessSystem {
     ArrayList<Process> executionOrder;
     public SJF(Process[] processes, int contextSwitchingTime) {
-        this.processes = processes;
-        this.contextSwitchingTime = contextSwitchingTime;
+        super(processes, contextSwitchingTime);
         executionOrder = new ArrayList<>();
     }
     @Override
@@ -18,23 +15,19 @@ public class SJF extends CPUSystem {
         Collections.addAll(remaining, processes);
 
         int curTime = 0;
-        while (executionOrder.size() < processes.length) {
+        for (int i = 0; i < processes.length; i++) {
             Process shortestProcess = findShortestProcess(remaining, curTime);
-            if (shortestProcess != null) {
-                executionOrder.add(shortestProcess);
+            executionOrder.add(shortestProcess);
 
-                shortestProcess.completionTime = curTime + shortestProcess.burstTime + contextSwitchingTime;
+            shortestProcess.completionTime = curTime + shortestProcess.burstTime + contextSwitchingTime;
 
-                shortestProcess.turnAroundTime = shortestProcess.completionTime - shortestProcess.arrivalTime;
-                shortestProcess.waitingTime = shortestProcess.turnAroundTime - shortestProcess.burstTime;
+            shortestProcess.waitingTime = shortestProcess.completionTime
+                    - shortestProcess.arrivalTime - shortestProcess.burstTime;
+            shortestProcess.turnAroundTime = shortestProcess.waitingTime + shortestProcess.burstTime;
 
-                remaining.remove(shortestProcess);
-                curTime = shortestProcess.completionTime;
-            } else {
-                curTime++;
-            }
+            remaining.remove(shortestProcess);
+            curTime = shortestProcess.completionTime;
         }
-        System.out.println("Using the Non-preemptive Shortest-Job First (SJF)");
         print(executionOrder, processes);
     }
 }

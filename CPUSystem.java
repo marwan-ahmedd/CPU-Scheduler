@@ -1,18 +1,16 @@
 import java.util.ArrayList;
 
 public abstract class CPUSystem {
-    public abstract void run() ;
-    public Process findShortestProcess(ArrayList<Process> processes, int curTime) {
-        Process shortest = null;
-        int minBurstTime = Integer.MAX_VALUE;
-        for (Process process : processes) {
-            if (process.arrivalTime <= curTime && process.burstTime < minBurstTime) {
-                shortest = process;
-                minBurstTime = process.burstTime;
-            }
-        }
-        return shortest;
+    protected final Process[] processes;
+    protected final int contextSwitchingTime;
+
+    public CPUSystem(Process[] processes, int contextSwitchingTime) {
+        this.processes = processes;
+        this.contextSwitchingTime = contextSwitchingTime;
     }
+
+    public abstract void run();
+
     public final void print(ArrayList<Process> executionOrder, Process[] processes) {
         double averageWaitingTime = 0, averageAroundTime = 0;
 
@@ -46,5 +44,6 @@ public abstract class CPUSystem {
         averageAroundTime /= processes.length;
         System.out.println("Average waiting time = " + (averageWaitingTime));
         System.out.println("Average turnaround time = " + (averageAroundTime));
+        System.out.println("----------------------------------------");
     }
 }

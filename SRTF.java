@@ -1,27 +1,15 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-public class SRTF extends CPUSystem {
-    private final Process[] processes;
-    private final int contextSwitchingTime, aging_factor;
-    ArrayList<Process> executionOrder;
+
+public class SRTF extends ShortestProcessSystem {
+    private final int aging_factor;
+    private final ArrayList<Process> executionOrder;
+
     public SRTF(Process[] processes, int contextSwitchingTime, int aging_factor) {
-        this.processes = processes.clone();
-        this.contextSwitchingTime = contextSwitchingTime;
+        super(processes, contextSwitchingTime);
         this.aging_factor = aging_factor;
         executionOrder = new ArrayList<>();
-    }
-    @Override
-    public Process findShortestProcess(ArrayList<Process> processes, int curTime) {
-        Process shortest = null;
-        int minStarvationTime = Integer.MAX_VALUE;
-        for (Process process : processes) {
-            if (process.arrivalTime <= curTime && process.priority < minStarvationTime) {
-                shortest = process;
-                minStarvationTime = process.priority;
-            }
-        }
-        return shortest;
     }
 
     @Override
@@ -33,8 +21,6 @@ public class SRTF extends CPUSystem {
 
         ArrayList<Process> remaining = new ArrayList<>();
         Collections.addAll(remaining, processes);
-        ArrayList<Process> original = new ArrayList<>();
-        Collections.addAll(original, processes);
 
         int curTime = 0;
         while (!remaining.isEmpty()) {
