@@ -7,4 +7,5 @@ It incorporates solid principles to ensure code quality, maintainability, and te
 * Solid principles: Adhere to principles like Single Responsibility, Open/Closed Principle, Dependency Inversion, and Liskov Substitution Principle for clean and maintainable code.<br>
 * Test-driven development: Utilize unit tests to ensure the correctness and reliability of each algorithm implementation.<br>
 * Detailed logging and output: Track process execution, context switches, and relevant metrics for analysis.<br>
+<br>
 !["UML Diagram"](/cpu-scheduler.png "UML Diagram")
