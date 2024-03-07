@@ -7,3 +7,4 @@ Multiple algorithms: Implementations of SJF, SRTF, and Priority scheduling with 
 Solid principles: Adhere to principles like Single Responsibility, Open/Closed Principle, Dependency Inversion, and Liskov Substitution Principle for clean and maintainable code.
 Test-driven development: Utilize unit tests to ensure the correctness and reliability of each algorithm implementation.
 Detailed logging and output: Track process execution, context switches, and relevant metrics for analysis.
+!["UML Diagram"](/cpu-scheduler.png)
